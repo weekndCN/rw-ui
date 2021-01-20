@@ -213,7 +213,7 @@ export default {
   },
   computed: {
     uppath() {
-      return `${instance}` + this.uploadPath;
+      return `${instance}` + "/upload/" + this.uploadPath;
     },
     uploadLoading() {
       return this.$store.state.loading;

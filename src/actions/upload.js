@@ -7,7 +7,7 @@ export const UPLOAD_FILES_FAILURE = "UPLOAD_FILES_FAILURE";
 
 export const uploadFiles = async (store, params) => {
     store.commit(UPLOAD_FILES_LOADING);
-    const req = await fetch(`${instance}/upload`, {
+    const req = await fetch(`${instance}/upload/upload`, {
         headers: new Headers({}),
         //{ "content-type": "multipart/form-data; boundary=1650458473" },
         method: "POST",

@@ -33,14 +33,12 @@
 
 
 <script>
-import HomeJobs from "@/views/Jobs";
 import HomeSettings from "@/views/Settings";
 import HomeProfit from "@/views/Profit";
 
 export default {
   name: "Galaxy",
   components: {
-    HomeJobs,
     HomeSettings,
     HomeProfit,
   },

@@ -16,7 +16,7 @@ const routes = [
       {
         path: '/upload',
         name: 'upload',
-        component: () => import('@/views/appUpload/upload'),
+        component: () => import('@/views/appUpload/tabs'),
       },
       {
         path: '/shorturl',

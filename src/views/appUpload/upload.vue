@@ -2,7 +2,7 @@
   <v-container fluid fill-height>
     <v-row>
       <v-col cols="6" md="“6”">
-        <v-card flat height="500" class="text-center">
+        <v-card flat height="550" class="text-center">
           <div class="box" id="uploadBox" multiple>
             <div v-if="uploadfiles == ''">
               <p class="caption text-justify">
@@ -180,6 +180,8 @@
 
 
 <script>
+import {instance} from '@/actions/config';
+
 export default {
   name: "upload",
   data: () => ({
@@ -211,7 +213,7 @@ export default {
   },
   computed: {
     uppath() {
-      return "http://upload.corp.wukongbox.cn/" + this.uploadPath;
+      return `${instance}` + this.uploadPath;
     },
     uploadLoading() {
       return this.$store.state.loading;

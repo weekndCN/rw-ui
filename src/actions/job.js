@@ -19,10 +19,10 @@ export const JOB_SELECT_FAILURE = "JOB_SELECT_FAILURE";
 
 
 // add job action
-export const addJob = async (store,params) => {
+export const addJob = async (store, params) => {
     store.commit(JOB_ADD_LOADING);
-    console.log("params:", params)
-    const req = await fetch(`${instance}/add`,{
+    // console.log("params:", params)
+    const req = await fetch(`${instance}/add`, {
         headers,
         method: "POST",
         body: JSON.stringify(params),
@@ -31,13 +31,13 @@ export const addJob = async (store,params) => {
     if (req.status < 300) {
         store.commit(JOB_ADD_SUCCESS);
     } else {
-        store.commit(JOB_ADD_FAILURE);
+        store.commit(JOB_ADD_FAILURE, req.JSON);
     }
 }
 
 // delete job action
 export const deleteJob = async ({ store, params }) => {
-
+    
 }
 
 // update job action
@@ -46,7 +46,20 @@ export const updateJob = async ({ store, params }) => {
 }
 
 // select job action
-export const selectJob = async ({ store, params }) => {
+export const selectJob = async (store, name) => {
+    store.commit(JOB_SELECT_LOADING);
+    const req = await fetch(`${instance}/${name}`, {
+        headers,
+        method: "GET",
+    })
 
+    const res = await req.json();
+
+    console.log("job res:",res)
+    if (req.status < 300) {
+        store.commit(JOB_SELECT_SUCCESS, res);
+    } else {
+        store.commit(JOB_SELECT_FAILURE, res);
+    }
 }
 

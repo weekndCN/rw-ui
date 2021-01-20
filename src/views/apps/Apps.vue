@@ -29,7 +29,7 @@
             class="overline mt-3"
             rounded
             block
-            color="indigo"
+            color="orange"
             >显示更多的应用</v-btn
           >
         </v-col>

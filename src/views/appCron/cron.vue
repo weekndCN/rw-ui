@@ -10,8 +10,9 @@
               multiple
               hide-details
               chips
+              rounded
               v-model="model"
-              :items="jobs"
+              :items="getjobs"
               :search-input.sync="search"
               hide-no-data
               return-object
@@ -82,13 +83,30 @@
             </v-list>
           </v-expand-transition>
         </v-card>
+        <v-btn
+          small
+          fixed
+          dark
+          fab
+          bottom
+          right
+          color="pink"
+          @click="showDialog()"
+        >
+          <v-icon small>mdi-plus</v-icon>
+        </v-btn>
       </v-col>
+      <v-dialog persistent v-model="showdialog" width="500">
+        <add-job />
+      </v-dialog>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import { jobs } from "@/api/cron";
+
+import AddJob from "./AddJob";
 
 export default {
   name: "cron",
@@ -98,15 +116,28 @@ export default {
     model: null,
     search: null,
     isUpdating: false,
-    jobs: jobs,
     fab: true,
   }),
+  components: {
+    AddJob,
+  },
+  computed: {
+    showdialog() {
+      return this.$store.state.addjobdialog;
+    },
+    getjobs() {
+      return this.$store.state.jobs;
+    },
+  },
   watch: {
     isUpdating(val) {
       if (val) {
         setTimeout(() => (this.isUpdating = false), 3000);
       }
     },
+  },
+  mounted() {
+    this.getJobs();
   },
   methods: {
     remove: function (item) {
@@ -118,6 +149,12 @@ export default {
     },
     restartjob: function (item) {
       console.log("item:", item);
+    },
+    showDialog() {
+      this.$store.dispatch("showAddJobDialog");
+    },
+    getJobs() {
+      this.$store.dispatch("fetchJobs");
     },
   },
 };

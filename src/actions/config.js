@@ -1,7 +1,11 @@
 // default authentication credentials.
 export const headers = new Headers(
-    process.env.APP_JOB_HUB_TOKEN ? { Authorization: `Bearer ${process.env.APP_JOB_HUB_TOKEN}` } : {}
+    process.env.RWPLUS_TOKEN ? { Authorization: `Bearer ${process.env.APP_JOB_HUB_TOKEN}` } : {}
 );
 
-// backend api server address
-export const instance = "http://localhost:9090";
+// default server api token.
+export const token = process.env.RWPLUS_TOKEN;
+
+// default server address.
+export const instance = process.env.RWPLUS_SERVER || "localhost:9090";
+

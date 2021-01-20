@@ -13,7 +13,8 @@ export default new Vuex.Store({
       url: config.instance || `${window.location.protocol}//${window.location.host}`
     },
     // jobs store
-    jobs: {},
+    jobs: [],
+    job: {},
     // background image
     bgimage: {},
     // add job dialog
@@ -27,6 +28,7 @@ export default new Vuex.Store({
       text: '',
     },
     loading: false,
+    tree: [],
   },
   // mutations update store values
   mutations: {
@@ -38,7 +40,7 @@ export default new Vuex.Store({
     JOBS_FETCH_FAILURE(state, { error }) {
     },
     JOBS_FETCH_SUCCESS(state, { res }) {
-      console.log("res:",res)
+      console.log("res:", res)
       state.jobs = res;
     },
     /*
@@ -66,26 +68,67 @@ export default new Vuex.Store({
       state.snack.text = "添加任务成功"
       state.snack.color = "success"
     },
-    JOB_ADD_FAILURE(state) { },
+    JOB_ADD_FAILURE(state, res) {
+      state.snack.show = true
+      state.snack.text = res
+      state.snack.color = "error"
+    },
+
     JOB_DELETE_LOADING(state) { },
     JOB_UPDATE_LOADING(state) { },
-    JOB_SELECT_LOADING(state) { },
 
+
+    JOB_SELECT_LOADING(state) {
+    },
+
+    JOB_SELECT_SUCCESS(state, res) {
+      state.job = res
+    },
+    JOB_SELECT_FAILURE(state, res) {
+      state.snack.show = true
+      state.snack.text = res
+      state.snack.color = "error"
+    },
+
+    // upload files
     UPLOAD_FILES_LOADING(state) {
       state.loading = true
     },
-    UPLOAD_FILES_SUCCESS(state){
+    UPLOAD_FILES_SUCCESS(state) {
       console.log("receive")
       state.loading = false
       state.snack.show = true
       state.snack.text = "上传成功"
       state.snack.color = "success"
     },
-    UPLOAD_FILES_FAILURE(state){
+    UPLOAD_FILES_FAILURE(state) {
       state.loading = false
       state.snack.show = true
       state.snack.text = "上传失败"
       state.snack.color = "error"
+    },
+
+    // file tree
+    GET_TREE_LOADING(state) {
+      state.loading = true
+    },
+    GET_TREE_SUCCESS(state, res) {
+      state.tree = res
+      state.loading = false
+    },
+    GET_TREE_FAILURE(state) {
+      state.loading = false
+      state.snack.show = true
+      state.snack.text = "获取文件信息失败"
+      state.snack.color = "error"
+    },
+
+    // download files
+    DOWNLOAD_FILES_LOADING(state) {
+    },
+    DOWNLOAD_FILES_SUCCESS(state) {
+    },
+    DOWNLOAD_FILES_FAILURE(state) {
     },
   },
   actions,

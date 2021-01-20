@@ -7,5 +7,5 @@ export const headers = new Headers(
 export const token = process.env.RWPLUS_TOKEN;
 
 // default server address.
-export const instance = process.env.RWPLUS_SERVER || "localhost:9090";
+export const instance = process.env.RWPLUS_SERVER || "http://localhost:9090";
 

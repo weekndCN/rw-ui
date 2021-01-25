@@ -10,8 +10,8 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'galaxy',
-        component: () => import('@/views/Galaxy'),
+        name: 'dashboard',
+        component: () => import('@/views/Dashboard'),
       },
       {
         path: '/upload',
@@ -40,7 +40,7 @@ const routes = [
       },
     ],
   },
-  
+
   {
     path: '/login',
     name: '/login',

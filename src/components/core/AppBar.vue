@@ -1,10 +1,10 @@
 <template>
-  <v-app-bar absolute app flat color="transparent">
+  <v-app-bar absolute app color="transparent">
     <v-spacer></v-spacer>
     <v-btn icon @click="changeMod()">
       <v-icon
         v-text="$vuetify.theme.dark ? 'mdi-brightness-4' : 'mdi-brightness-6'"
-        :color="$vuetify.theme.dark ? 'purple darken-2' : 'black'"
+        :color="$vuetify.theme.dark ? 'indigo' : 'black'"
       ></v-icon>
     </v-btn>
 
@@ -25,7 +25,7 @@
       transition="scroll-y-reverse-transition"
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-avatar size="36" v-on="on">
+        <v-avatar size="24" v-on="on">
           <img
             src="https://avatars0.githubusercontent.com/u/29080380?s=460&amp;u=8acc9973cc9614290d82de1ff6d182af02b09a69&amp;v=4"
             alt="John"
@@ -55,6 +55,9 @@ export default {
     hints: true,
   }),
   computed: {},
+  mounted() {
+    //this.$vuetify.theme.dark = true;
+  },
   methods: {
     changeMod() {
       if (this.$vuetify.theme.dark) {

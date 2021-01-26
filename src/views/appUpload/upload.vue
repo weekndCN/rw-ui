@@ -2,19 +2,43 @@
   <v-container fluid fill-height>
     <v-row>
       <v-col cols="6" md="“6”">
-        <v-card flat height="550" class="text-center">
+        <v-card height="550" class="text-center" rounded="xl">
           <div class="box" id="uploadBox" multiple>
             <div v-if="uploadfiles == ''">
-              <p class="caption text-justify">
-                拖拽文件到虚线框内或者<span
-                  class="caption font-weight-bold teal--text"
-                  >点击按钮上传</span
-                >
-              </p>
-              <p class="caption">
-                <span class="caption font-weight-bold">支持的文件类型:</span>
-                pdf, jpg, png
-              </p>
+              <v-row align="center" justify="center">
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-content>
+                      <v-icon x-large color="indigo">mdi-cloud-upload</v-icon>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item two-line>
+                    <v-list-item-content>
+                      <h2 class="text-uppercase font-weight-bold">
+                        Drag Or Drop
+                      </h2>
+                      <v-list-item-subtitle class="overline grey--text"
+                        >To Upload</v-list-item-subtitle
+                      >
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item class="text-center">
+                    <v-list-item-content>
+                      <v-file-input
+                        class="overline mt-5"
+                        filled
+                        hide-details
+                        dense
+                        color="indigo"
+                        placeholder="或者浏览本地选择文件"
+                        v-model="uploadfiles"
+                        prepend-icon=""
+                      >
+                      </v-file-input>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </v-row>
             </div>
             <div v-else class="ml-5">
               <strong class="font-weight-bold overline">文件名:</strong>
@@ -48,129 +72,79 @@
         </v-card>
       </v-col>
       <v-col cols="6" md="6">
-        <v-card class="mx-auto" flat>
-          <v-progress-linear
-            :active="uploadLoading"
-            :indeterminate="uploadLoading"
-            absolute
-            color="deep-purple accent-4"
-          ></v-progress-linear>
-          <v-toolbar flat dense class="overline">upload information</v-toolbar>
+        <v-card flat>
+          <v-row class="ma-1 mb-3" align="center" justify="center">
+            <v-btn-toggle text>
+              <v-btn small>option</v-btn>
+              <v-btn small>progress</v-btn>
+            </v-btn-toggle>
+            <v-spacer></v-spacer>
+            <v-btn fab small @click="comitUpload()" elevation="10"
+              ><v-icon>mdi-upload</v-icon></v-btn
+            >
+          </v-row>
           <v-divider></v-divider>
-          <v-list subheader two-line dense>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title class="caption font-weight-bold mb-1"
-                  >上传目录</v-list-item-title
-                >
-                <v-text-field
-                  filled
-                  v-model="uploadPath"
-                  dense
-                  hide-details
-                  placeholder="默认为当前目录/"
-                  class="caption"
-                ></v-text-field>
-                <v-sheet
-                  color="orange lighten-2  mt-3 caption mx-auto"
-                  :elevation="1"
-                  height="40"
-                  rounded
-                >
-                  <div class="mt-3 black--text">
-                    <v-icon small class="ml-6">mdi-help-circle</v-icon>
-                    上传服务器下若存在同名文件，将被新上传的文件覆盖。
-                  </div>
-                </v-sheet>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title class="caption font-weight-bold mb-1"
-                  >访问路径</v-list-item-title
-                >
-
-                <v-text-field
-                  filled
-                  dense
-                  hide-details
-                  disabled
-                  class="caption"
-                  :placeholder="uppath"
-                ></v-text-field>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
+          <v-list-item>
+            <v-list-item-content two-line>
+              <v-list-item-title class="caption font-weight-bold mb-1"
+                >上传目录</v-list-item-title
+              >
+              <v-text-field
+                v-model="uploadPath"
+                dense
+                hide-details
+                solo-inverted
+                placeholder="默认为当前目录/"
+                class="caption"
+              ></v-text-field>
+            </v-list-item-content>
+          </v-list-item>
           <v-divider></v-divider>
-
           <v-list>
             <v-list-item>
               <v-list-item-content>
-                <v-list-item-title class="caption font-weight-bold mb-1"
-                  >上传大小</v-list-item-title
+                <v-list-item-title class="caption font-weight-bold">
+                  访问URL</v-list-item-title
                 >
-                <v-list-item-subtitle class="caption"
-                  >130M</v-list-item-subtitle
-                >
-              </v-list-item-content>
-              <v-list-item-content>
-                <v-list-item-title class="caption font-weight-bold mb-1"
-                  >上传目录</v-list-item-title
-                >
-                <v-list-item-subtitle class="caption">/</v-list-item-subtitle>
-              </v-list-item-content>
-              <v-list-item-content>
-                <v-list-item-title class="caption font-weight-bold mb-1"
-                  >开启https</v-list-item-title
-                >
-                <v-list-item-subtitle class="caption"
-                  >https</v-list-item-subtitle
-                >
+                <v-list-item-subtitle class="caption">
+                  {{uploadPath}}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
-              <v-sheet
-                color="orange lighten-2 mt-3 caption mx-auto"
-                :elevation="1"
-                rounded
-                width="100%"
+              <v-list-item-content
+                v-for="(item, index) in limitDesc.limit"
+                :key="index"
               >
-                <div class="mt-3 black--text">
-                  <v-icon small class="ml-6">mdi-help-circle</v-icon>
-                  上传限制：
-                </div>
-                <div class="ma-3 ml-6 black--text caption">
-                  1:
-                  上传目录限制层级为一层，即/demo合法。/demo/files/不合法；<br />
-                  2: 上传总大小限制150M；<br />
-                  3: 禁止文件名存在空格；<br />
-                </div>
-              </v-sheet>
+                <v-list-item-title class="caption font-weight-bold">
+                  {{ item.name }}
+                </v-list-item-title>
+                <v-list-item-subtitle class="caption">
+                  {{ item.value }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
             </v-list-item>
           </v-list>
+
+          <v-alert color="teal" border="left" elevation="2" text dense>
+            <v-list>
+              <v-list-item class="caption">
+                <v-list-item-content>
+                  <v-list-item-title class="mb-4"
+                    >{{ limitDesc.name }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle
+                    class="caption"
+                    v-for="item in limitDesc.items"
+                    :key="item.id"
+                    ><v-icon color="green"
+                      >mdi-numeric-{{ item.id }}-circle</v-icon
+                    >{{ item.desc }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-alert>
           <v-divider></v-divider>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn small depressed>取消 </v-btn>
-            <v-btn
-              small
-              color="cyan"
-              dark
-              :disabled="loading"
-              :loading="loading"
-              depressed
-              @click="comitUpload()"
-              >确定</v-btn
-            >
-            <v-spacer></v-spacer>
-          </v-card-actions>
-          <v-progress-linear
-            :active="uploadLoading"
-            :indeterminate="uploadLoading"
-            absolute
-            color="deep-purple accent-4"
-          ></v-progress-linear>
         </v-card>
       </v-col>
     </v-row>
@@ -180,27 +154,19 @@
 
 
 <script>
-import {instance} from '@/actions/config';
+// api inital config
+import { instance } from "@/actions/config";
+import { limitdesc } from "@/api/upload";
+import { fileType } from "@/api/type";
 
 export default {
   name: "upload",
   data: () => ({
     uploadfiles: [],
-    fileType: {
-      ".html": "mdi-language-html5",
-      ".js": "mdi-nodejs",
-      ".json": "mdi-json",
-      ".md": "mdi-language-markdown",
-      ".pdf": "mdi-pdf-box",
-      ".png": "mdi-image",
-      ".jpg": "mdi-image",
-      ".jpeg": "mdi-image",
-      ".txt": "mdi-signature-text",
-      ".xls": "mdi-file-excel-box",
-      "": "mdi-text",
-    },
+    fileType: fileType,
     uploadPath: "",
     loading: false,
+    limitDesc: limitdesc,
   }),
   mounted() {
     this.$nextTick(function () {
@@ -225,8 +191,8 @@ export default {
     },
     comitUpload: function () {
       let params = new FormData();
-      for (var i=0; i< this.uploadfiles.length; i++) {
-          params.append("file",this.uploadfiles[i])
+      for (var i = 0; i < this.uploadfiles.length; i++) {
+        params.append("file", this.uploadfiles[i]);
       }
       this.$store.dispatch("uploadFiles", params);
     },
@@ -251,7 +217,7 @@ export default {
 
 <style>
 .box {
-  border: 2px dashed #90a4ae;
+  border: 2px dashed #58717e;
   border-radius: 8px;
   width: 100%;
   height: 100%;

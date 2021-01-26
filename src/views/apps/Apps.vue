@@ -8,7 +8,6 @@
             depressed
             height="70"
             width="70"
-            :href="app.href"
             :target="app.href"
           >
             <div>

@@ -1,32 +1,28 @@
 <template>
-  <v-container fluid>
+  <v-container fluid fill-height>
     <v-row no-gutters>
-      <v-col>
-        <v-toolbar flat>
-          <v-toolbar-title class="header text-uppercase font-weight-bold text--indigo"
-            >Cloud File</v-toolbar-title
-          >
-          <template v-slot:extension>
-            <v-tabs v-model="tabs" slider-color="orange" active-class="font-weight-bold" color="lighten-4">
-              <v-tab class="caption">
-                <v-icon left>mdi-cloud-upload</v-icon>
-                Upload
-              </v-tab>
-              <v-tab class="caption">
-                <v-icon left>mdi-cloud-download</v-icon>
-                download
-              </v-tab>
+      <v-col cols="12">
+        <v-card rounded="xl" elevation="10">
+          <v-toolbar dark>
+            <v-tabs
+              v-model="tabs"
+              slider-color="deep-orange"
+              active-class="font-weight-bold"
+              color="lighten-4"
+            >
+              <v-tab class="overline"> upload </v-tab>
+              <v-tab class="overline"> download </v-tab>
             </v-tabs>
-          </template>
-        </v-toolbar>
-        <v-tabs-items v-model="tabs">
-          <v-tab-item>
-            <tab-upload />
-          </v-tab-item>
-          <v-tab-item>
-            <tab-download />
-          </v-tab-item>
-        </v-tabs-items>
+          </v-toolbar>
+          <v-tabs-items v-model="tabs">
+            <v-tab-item>
+              <tab-upload />
+            </v-tab-item>
+            <v-tab-item>
+              <tab-download />
+            </v-tab-item>
+          </v-tabs-items>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>

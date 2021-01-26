@@ -2,8 +2,8 @@
   <v-container fluid fill-height>
     <v-row no-gutters>
       <v-col cols="12">
-        <v-card flat min-height="550">
-          <v-toolbar flat>
+        <v-card min-height="550" rounded="xl">
+          <v-toolbar>
             <v-text-field
               v-model="search"
               class="overline"
@@ -16,22 +16,10 @@
               clear-icon="mdi-close-circle-outline"
             ></v-text-field>
             <v-spacer></v-spacer>
-
-            <v-btn outlined @click="tree = []" class="caption ma-4">
-              清除选中<v-icon small right
-                >mdi-close-circle-multiple</v-icon
-              ></v-btn
-            >
-            <v-btn
-              green
-              depressed
-              @click="dowloadFiles()"
-              class="caption"
-              color="green"
-            >
-              下载文件
-              <v-icon small right>mdi-content-save</v-icon>
-            </v-btn>
+            <v-btn-toggle text small>
+              <v-btn @click="tree = []" small> clear</v-btn>
+              <v-btn @click="dowloadFiles()" small> download </v-btn>
+            </v-btn-toggle>
           </v-toolbar>
           <v-divider></v-divider>
           <v-row no-gutters>

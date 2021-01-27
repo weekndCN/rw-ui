@@ -7,8 +7,10 @@ export const DOWNLOAD_FILES_FAILURE = "DOWNLOAD_FILES_FAILURE";
 
 export const downloadFile = async (store, params) => {
     const { name, path } = params
+    // remove base directory name
+    const filepath = path.substring(8)
     store.commit(DOWNLOAD_FILES_LOADING);
-    const req = await fetch(`${instance}/download/${path}`, {
+    const req = await fetch(`${instance}/download/${filepath}`, {
         headers: new Headers({}),
         responseType: 'arraybuffer',
         method: "GET",

@@ -105,6 +105,7 @@
                     <v-text-field
                       v-model="uploadPath"
                       dense
+                      :disabled="disable"
                       hide-details
                       solo-inverted
                       placeholder="默认为当前目录/"
@@ -115,9 +116,9 @@
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title class="caption font-weight-bold">
-                      访问URL</v-list-item-title
+                      访问URL的PathPrefix</v-list-item-title
                     >
-                    <v-list-item-subtitle class="caption">
+                    <v-list-item-subtitle class="caption mt-2">
                       {{ uppath }}</v-list-item-subtitle
                     >
                   </v-list-item-content>
@@ -130,7 +131,7 @@
                     <v-list-item-title class="caption font-weight-bold">
                       {{ item.name }}
                     </v-list-item-title>
-                    <v-list-item-subtitle class="caption">
+                    <v-list-item-subtitle class="caption  mt-2">
                       {{ item.value }}
                     </v-list-item-subtitle>
                   </v-list-item-content>
@@ -255,6 +256,7 @@ export default {
     remove: function () {
       this.disable = !this.disable;
       this.uploadfiles = [];
+      this.uploadPath = '';
       this.$store.state.uploadStatus = "";
     },
     ext: function (e) {
@@ -273,7 +275,7 @@ export default {
       if (this.uploadPath != "") {
         params.append("dir", this.uploadPath);
       }
-      
+
       this.$store.dispatch("uploadFiles", params);
       /*
       clear array file list when success

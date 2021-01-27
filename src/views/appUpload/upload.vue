@@ -223,7 +223,7 @@ export default {
     uploadfiles: [],
     browerfiles: [],
     fileType: fileTypes,
-    uploadPath: "",
+    uploadPath: "/",
     loading: false,
     // type is flag to use option or progress
     // option compont to do!
@@ -243,7 +243,7 @@ export default {
   },
   computed: {
     uppath() {
-      return `${instance}` + "/" + this.uploadPath;
+      return `${instance}` + this.uploadPath;
     },
     uploadLoading() {
       return this.$store.state.loading;
@@ -256,7 +256,7 @@ export default {
     remove: function () {
       this.disable = !this.disable;
       this.uploadfiles = [];
-      this.uploadPath = '';
+      this.uploadPath = '/';
       this.$store.state.uploadStatus = "";
     },
     ext: function (e) {

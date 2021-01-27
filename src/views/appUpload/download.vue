@@ -6,7 +6,7 @@
           <v-toolbar>
             <v-text-field
               v-model="search"
-              class="overline"
+              class="overline mr-3"
               placeholder="检索文件"
               outlined
               dense
@@ -15,6 +15,9 @@
               color="indigo"
               clear-icon="mdi-close-circle-outline"
             ></v-text-field>
+            <v-btn x-small fab @click="getTree()"
+              ><v-icon small>mdi-sync</v-icon></v-btn
+            >
             <v-spacer></v-spacer>
             <v-btn-toggle text small>
               <v-btn @click="tree = []" small> clear</v-btn>
@@ -139,7 +142,7 @@ export default {
       data.push(this.$store.state.tree);
       // return data;
       // show only children. ignore parent directory
-      return data[0].children
+      return data[0].children;
     },
     filter() {
       return this.caseSensitive

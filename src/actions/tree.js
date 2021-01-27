@@ -7,7 +7,7 @@ export const GET_TREE_FAILURE = "GET_TREE_FAILURE";
 
 export const getTree = async (store, params) => {
     store.commit(GET_TREE_LOADING);
-    const req = await fetch(`${instance}/upload/tree`, {
+    const req = await fetch(`${instance}/tree`, {
         headers: new Headers({}),
         method: "get",
     }).catch(

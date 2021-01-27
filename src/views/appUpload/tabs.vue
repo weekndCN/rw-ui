@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container fluid>
     <v-row no-gutters>
       <v-col cols="12">
         <v-card rounded="xl" elevation="10">

@@ -25,14 +25,16 @@
                   <v-list-item class="text-center">
                     <v-list-item-content>
                       <v-file-input
-                        class="overline mt-5"
+                        class="caption mt-5"
                         filled
                         hide-details
                         dense
                         color="indigo"
                         placeholder="或者浏览本地选择文件"
                         v-model="uploadfiles"
+                        multiple
                         prepend-icon=""
+                        show-size
                       >
                       </v-file-input>
                     </v-list-item-content>
@@ -41,26 +43,29 @@
               </v-row>
             </div>
             <div v-else class="ml-5">
-              <strong class="font-weight-bold overline">文件名:</strong>
+              <v-btn
+                @click="remove()"
+                small
+                class="caption"
+                color="red"
+                dark
+                rounded
+                ><v-icon small>mdi-close</v-icon>清空重选</v-btn
+              >
               <v-chip-group column active-class="primary-color">
                 <v-chip
                   v-for="(file, i) in uploadfiles"
                   :key="i"
-                  @click:close="remove(file)"
-                  close
                   label
                   text-color="white"
+                  color="black"
                 >
                   <v-avatar left>
-                    <v-icon small>
-                      {{
-                        fileType[
-                          file.name.substr(
-                            file.name.indexOf(".", -1),
-                            file.name.length
-                          )
-                        ]
-                      }}
+                    <v-icon
+                      small
+                      v-text="ext(file.name).icon"
+                      :color="ext(file.name).color"
+                    >
                     </v-icon>
                   </v-avatar>
                   <strong>{{ file.name }}</strong>
@@ -74,76 +79,128 @@
       <v-col cols="6" md="6">
         <v-card flat>
           <v-row class="ma-1 mb-3" align="center" justify="center">
-            <v-btn-toggle text>
-              <v-btn small>option</v-btn>
-              <v-btn small>progress</v-btn>
+            <v-btn-toggle text v-model="type">
+              <v-btn small value="option">option</v-btn>
+              <v-btn small value="progress">progress</v-btn>
             </v-btn-toggle>
             <v-spacer></v-spacer>
-            <v-btn fab small @click="comitUpload()" elevation="10"
+            <v-btn
+              fab
+              small
+              @click="comitUpload()"
+              elevation="10"
+              :disabled="disable"
               ><v-icon>mdi-upload</v-icon></v-btn
             >
           </v-row>
           <v-divider></v-divider>
-          <v-list-item>
-            <v-list-item-content two-line>
-              <v-list-item-title class="caption font-weight-bold mb-1"
-                >上传目录</v-list-item-title
-              >
-              <v-text-field
-                v-model="uploadPath"
+          <v-scale-transition>
+            <div v-if="type == 'option'">
+              <v-list>
+                <v-list-item>
+                  <v-list-item-content two-line>
+                    <v-list-item-title class="caption font-weight-bold mb-1"
+                      >上传目录</v-list-item-title
+                    >
+                    <v-text-field
+                      v-model="uploadPath"
+                      dense
+                      hide-details
+                      solo-inverted
+                      placeholder="默认为当前目录/"
+                      class="caption"
+                    ></v-text-field>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title class="caption font-weight-bold">
+                      访问URL</v-list-item-title
+                    >
+                    <v-list-item-subtitle class="caption">
+                      {{ uppath }}</v-list-item-subtitle
+                    >
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-content
+                    v-for="(item, index) in limitDesc.limit"
+                    :key="index"
+                  >
+                    <v-list-item-title class="caption font-weight-bold">
+                      {{ item.name }}
+                    </v-list-item-title>
+                    <v-list-item-subtitle class="caption">
+                      {{ item.value }}
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+              <v-divider></v-divider>
+              <v-alert
+                color="teal"
+                border="left"
+                elevation="2"
+                text
                 dense
-                hide-details
-                solo-inverted
-                placeholder="默认为当前目录/"
-                class="caption"
-              ></v-text-field>
-            </v-list-item-content>
-          </v-list-item>
-          <v-divider></v-divider>
-          <v-list>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title class="caption font-weight-bold">
-                  访问URL</v-list-item-title
-                >
-                <v-list-item-subtitle class="caption">
-                  {{uploadPath}}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-content
-                v-for="(item, index) in limitDesc.limit"
-                :key="index"
+                class="mt-4"
               >
-                <v-list-item-title class="caption font-weight-bold">
-                  {{ item.name }}
-                </v-list-item-title>
-                <v-list-item-subtitle class="caption">
-                  {{ item.value }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-
-          <v-alert color="teal" border="left" elevation="2" text dense>
-            <v-list>
-              <v-list-item class="caption">
+                <v-list>
+                  <v-list-item class="caption">
+                    <v-list-item-content>
+                      <v-list-item-title class="mb-4"
+                        >{{ limitDesc.name }}
+                      </v-list-item-title>
+                      <v-list-item-subtitle
+                        class="caption"
+                        v-for="item in limitDesc.items"
+                        :key="item.id"
+                        ><v-icon color="green" left
+                          >mdi-numeric-{{ item.id }}-circle</v-icon
+                        >{{ item.desc }}
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </v-alert>
+            </div>
+            <div v-else>
+              <v-list-item v-for="(file, index) in uploadfiles" :key="index">
+                <v-list-item-icon
+                  ><v-icon
+                    right
+                    v-text="ext(file.name).icon"
+                    :color="ext(file.name).color"
+                  ></v-icon
+                ></v-list-item-icon>
                 <v-list-item-content>
-                  <v-list-item-title class="mb-4"
-                    >{{ limitDesc.name }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle
-                    class="caption"
-                    v-for="item in limitDesc.items"
-                    :key="item.id"
-                    ><v-icon color="green"
-                      >mdi-numeric-{{ item.id }}-circle</v-icon
-                    >{{ item.desc }}
-                  </v-list-item-subtitle>
+                  <v-list-item-title class="caption">{{
+                    file.name
+                  }}</v-list-item-title>
+                  <v-progress-linear
+                    rounded
+                    color="green"
+                    :indeterminate="uploadStatus == 'loading' ? true : false"
+                    :value="uploadStatus == 'success' ? 100 : 0"
+                  ></v-progress-linear>
                 </v-list-item-content>
+                <v-list-item-action>
+                  <v-icon right color="indigo" v-if="uploadStatus == 'failure'"
+                    >mdi-close-circle</v-icon
+                  >
+                  <v-icon
+                    right
+                    color="green"
+                    v-else-if="uploadStatus == 'success'"
+                    >mdi-check-circle</v-icon
+                  >
+                  <v-icon right color="red" v-else
+                    >mdi-cloud-sync-outline</v-icon
+                  >
+                </v-list-item-action>
               </v-list-item>
-            </v-list>
-          </v-alert>
+            </div>
+          </v-scale-transition>
           <v-divider></v-divider>
         </v-card>
       </v-col>
@@ -157,16 +214,22 @@
 // api inital config
 import { instance } from "@/actions/config";
 import { limitdesc } from "@/api/upload";
-import { fileType } from "@/api/type";
+import { fileTypes } from "@/api/type";
 
 export default {
   name: "upload",
   data: () => ({
     uploadfiles: [],
-    fileType: fileType,
+    browerfiles: [],
+    fileType: fileTypes,
     uploadPath: "",
     loading: false,
+    // type is flag to use option or progress
+    // option compont to do!
+    // progress component to do!
+    type: "progress",
     limitDesc: limitdesc,
+    disable: false,
   }),
   mounted() {
     this.$nextTick(function () {
@@ -179,22 +242,44 @@ export default {
   },
   computed: {
     uppath() {
-      return `${instance}` + "/upload/" + this.uploadPath;
+      return `${instance}` + "/" + this.uploadPath;
     },
     uploadLoading() {
       return this.$store.state.loading;
     },
+    uploadStatus() {
+      return this.$store.state.uploadStatus;
+    },
   },
   methods: {
-    remove: function (e) {
-      delete this.uploadfiles.e;
+    remove: function () {
+      this.disable = !this.disable;
+      this.uploadfiles = [];
+      this.$store.state.uploadStatus = "";
+    },
+    ext: function (e) {
+      if (!this.fileType[e.substr(e.indexOf(".", -1), e.length)]) {
+        return "mdi-alert-circle";
+      } else {
+        return this.fileType[e.substr(e.indexOf(".", -1), e.length)];
+      }
     },
     comitUpload: function () {
+      this.disable = !this.disable;
       let params = new FormData();
       for (var i = 0; i < this.uploadfiles.length; i++) {
         params.append("file", this.uploadfiles[i]);
       }
+      if (this.uploadPath != "") {
+        params.append("dir", this.uploadPath);
+      }
+      
       this.$store.dispatch("uploadFiles", params);
+      /*
+      clear array file list when success
+      */
+
+      // move to single file to upload for catching progress TO DO
     },
     uploadFile: function (e) {
       this.uploadfiles = e;

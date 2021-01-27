@@ -28,6 +28,7 @@ export default new Vuex.Store({
       text: '',
     },
     loading: false,
+    uploadStatus: {},
     tree: [],
   },
   // mutations update store values
@@ -91,17 +92,17 @@ export default new Vuex.Store({
     },
 
     // upload files
-    UPLOAD_FILES_LOADING(state) {
-      state.loading = true
+    UPLOAD_FILES_LOADING(state, name) {
+      state.uploadStatus = 'loading'
     },
-    UPLOAD_FILES_SUCCESS(state) {
-      console.log("receive")
-      state.loading = false
-      state.snack.show = true
-      state.snack.text = "上传成功"
-      state.snack.color = "success"
+    UPLOAD_FILES_SUCCESS(state, name) {
+      /*
+      */
+      state.uploadStatus = 'success'
+
     },
     UPLOAD_FILES_FAILURE(state) {
+      state.uploadStatus = 'failure'
       state.loading = false
       state.snack.show = true
       state.snack.text = "上传失败"

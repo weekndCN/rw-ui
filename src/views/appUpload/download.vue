@@ -24,7 +24,7 @@
           <v-divider></v-divider>
           <v-row no-gutters>
             <v-col>
-              <v-card-text v-if="items.length >= 1">
+              <v-card-text>
                 <v-treeview
                   v-model="tree"
                   :items="items"
@@ -62,14 +62,14 @@
             <v-col cols="12" md="6">
               <v-card-text>
                 <div
-                  v-if="tree.length === 0"
+                  v-if="tree == ''"
                   key="title"
                   class="title font-weight-light grey--text pa-4 text-center"
                 >
                   选中文件
                 </div>
 
-                <v-list three-line dense v-if="tree.length >= 1">
+                <v-list three-line dense>
                   <v-list-item
                     v-for="(selection, i) in tree"
                     :key="i"
@@ -137,7 +137,9 @@ export default {
     items() {
       var data = [];
       data.push(this.$store.state.tree);
-      return data;
+      // return data;
+      // show only children. ignore parent directory
+      return data[0].children
     },
     filter() {
       return this.caseSensitive

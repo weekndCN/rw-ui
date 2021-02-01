@@ -4,7 +4,7 @@
       <v-col>
         <v-card elevation="12" rounded="xl">
           <v-toolbar color="deep-indigo">
-            <v-toolbar-title class="subtitle-1 font-weight-bold">HTTPS健康检测</v-toolbar-title>
+            <v-toolbar-title class="subtitle-1">HTTPS健康检测</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-text-field
               rounded
@@ -65,12 +65,20 @@
                     </v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-action>
-                    <v-list-item-action-text v-text="cert.check_at"></v-list-item-action-text>
+                    <v-list-item-action-text
+                      v-text="cert.check_at"
+                    ></v-list-item-action-text>
                     <v-btn-toggle dense rounded>
-                      <v-btn small :color="cert.expired_at < 48 ? 'red' : ''" class="caption"
+                      <v-btn
+                        small
+                        :color="cert.expired_at < 48 ? 'red' : ''"
+                        class="caption"
                         >Bad</v-btn
                       >
-                      <v-btn small :color="cert.expired_at > 48 ? 'green' : ''" class="caption"
+                      <v-btn
+                        small
+                        :color="cert.expired_at > 48 ? 'green' : ''"
+                        class="caption"
                         >OK</v-btn
                       >
                     </v-btn-toggle>
@@ -81,6 +89,9 @@
           </v-card-text>
         </v-card>
       </v-col>
+      <v-dialog v-model="help" max-width="600">
+        <cert-desc />
+      </v-dialog>
     </v-row>
   </v-container>
 </template>
@@ -88,9 +99,13 @@
 
 <script>
 import { instance, header } from "@/actions/config";
+import CertDesc from "./desc";
 
 export default {
   name: "cert",
+  components: {
+    CertDesc,
+  },
   data: () => ({
     certs: {},
     search: "",

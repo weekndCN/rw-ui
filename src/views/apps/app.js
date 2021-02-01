@@ -34,4 +34,11 @@ export const menu = [
         color: "cyan",
         href: "/cron",
     },
+    {
+        id: 6,
+        name: "证书检测",
+        icon: "mdi-calendar-check",
+        color: "pink",
+        href: "/cert",
+    },
 ]

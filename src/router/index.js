@@ -19,6 +19,16 @@ const routes = [
         component: () => import('@/views/appUpload/tabs'),
       },
       {
+        path: '/labs',
+        name: 'labs',
+        component: () => import('@/views/Labs'),
+      },
+      {
+        path: '/cert',
+        name: 'cert',
+        component: () => import('@/views/appCert/cert'),
+      },
+      {
         path: '/shorturl',
         name: 'shorturl',
         component: () => import('@/views/appShorturl/shorturl'),

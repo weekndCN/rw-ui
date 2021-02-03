@@ -30,6 +30,10 @@ export default new Vuex.Store({
     loading: false,
     uploadStatus: {},
     tree: [],
+    // app drawer
+    drawer: false,
+    //mini mode
+    mini: true,
   },
   // mutations update store values
   mutations: {
@@ -130,6 +134,10 @@ export default new Vuex.Store({
     DOWNLOAD_FILES_SUCCESS(state) {
     },
     DOWNLOAD_FILES_FAILURE(state) {
+    },
+    // app drawer show
+    MINI_SHOW(state) {
+      state.mini = !state.mini
     },
   },
   actions,

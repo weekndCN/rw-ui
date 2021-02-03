@@ -5,3 +5,4 @@ export { addJob, deleteJob, updateJob, selectJob } from './job';
 export { uploadFiles } from './upload';
 export { getTree } from './tree';
 export { downloadFile } from './download';
+export { showMini } from './app';

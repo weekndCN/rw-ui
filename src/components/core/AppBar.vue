@@ -1,5 +1,9 @@
 <template>
-  <v-app-bar absolute app color="transparent">
+  <v-app-bar absolute clipped-left app>
+    <v-app-bar-nav-icon @click="miniChange()"></v-app-bar-nav-icon>
+    <span class="title ml-3 mr-5"
+      >RWPLUS&nbsp;<span class="font-weight-light">Apps</span></span
+    >
     <v-spacer></v-spacer>
     <v-btn icon @click="changeMod()">
       <v-icon
@@ -66,6 +70,10 @@ export default {
         this.$vuetify.theme.dark = true;
       }
     },
+    miniChange: function () {
+      this.$store.dispatch("showMini");
+    },
   },
 };
 </script>
+

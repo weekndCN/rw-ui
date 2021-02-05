@@ -1,8 +1,10 @@
 <template>
   <v-app-bar fixed clipped-left app>
-    <v-app-bar-nav-icon @click="miniChange()"></v-app-bar-nav-icon>
+    <v-avatar size="32">
+      <v-img src="@/assets/rwplus.svg"></v-img>
+    </v-avatar>
     <span class="title ml-3 mr-5"
-      >RWPLUS&nbsp;<span class="font-weight-light">Apps</span></span
+      >RWPLUS&nbsp;<span class="font-weight-light">账号</span></span
     >
     <v-spacer></v-spacer>
     <v-btn icon @click="changeMod()">
@@ -46,7 +48,7 @@ import HomeProfit from "@/views/Profit";
 import HomeApps from "@/views/apps/Apps";
 
 export default {
-  name: "HomeAppBar",
+  name: "AccountAppBar",
   components: {
     HomeProfit,
     HomeApps,
@@ -70,10 +72,15 @@ export default {
         this.$vuetify.theme.dark = true;
       }
     },
-    miniChange: function () {
-      this.$store.dispatch("showMini");
-    },
   },
 };
 </script>
 
+
+<style>
+.box-text {
+  fill: url(#SVGID_1_);
+  font-size: 40px;
+  font-weight: bolder;
+}
+</style>

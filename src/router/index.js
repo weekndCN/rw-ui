@@ -48,13 +48,33 @@ const routes = [
         name: 'logs',
         component: () => import('@/views/appCron/log'),
       },
+      {
+        path: '/setting',
+        name: 'setting',
+        component: () => import('@/views/Settings'),
+      },
     ],
   },
-
   {
     path: '/login',
     name: '/login',
     component: () => import('@/views/login/Login'),
+  },
+  {
+    path: '/account',
+    component: () => import('@/views/Account'),
+    children: [
+      {
+        path: '',
+        name: 'user',
+        component: () => import("@/views/account/views/user"),
+      },
+      {
+        path: '/account/reminder',
+        name: 'reminder',
+        component: () => import("@/views/account/views/reminder"),
+      },
+    ]
   },
 ]
 

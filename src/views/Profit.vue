@@ -20,7 +20,7 @@
             </v-avatar>
           </v-badge>
         </v-row>
-        <v-list>
+        <v-list dense rounded>
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="overline mt-3"
@@ -30,24 +30,26 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
-        <v-btn dense outlined class="overline mb-3" rounded
+        <v-btn dense outlined class="overline mb-3" rounded to="/account"
           >管理你的个人账号信息</v-btn
         >
         <v-divider></v-divider>
 
-        <v-list dense>
+        <v-list dense rounded>
           <v-list-item-group color="indigo">
             <v-list-item>
               <v-list-item-icon>
-                <v-icon small>mdi-github</v-icon></v-list-item-icon
+                <v-icon color="indigo">mdi-github</v-icon></v-list-item-icon
               >
               <v-list-item-content class="caption">
                 前往GitHub查看源代码
               </v-list-item-content>
             </v-list-item>
-            <v-list-item dense>
+            <v-list-item>
               <v-list-item-icon>
-                <v-icon small>mdi-head-sync-outline </v-icon></v-list-item-icon
+                <v-icon color="teal"
+                  >mdi-head-sync-outline
+                </v-icon></v-list-item-icon
               >
               <v-list-item-content class="caption">
                 刷新同步个人账号信息
@@ -56,13 +58,11 @@
           </v-list-item-group>
         </v-list>
         <v-divider></v-divider>
-        <v-btn text @click="menu = false" class="overline mt-4 mb-4" depressed
+        <v-btn depressed class="overline mt-4 mb-4" small rounded to="/login"
           >退出</v-btn
         >
         <v-divider></v-divider>
-        <p class="caption text-center mt-5 overline">
-            enjoy coding.enjoy life
-        </p>
+        <p class="caption text-center mt-5 overline">巅峰.永无止尽</p>
       </v-container>
     </v-card>
   </div>

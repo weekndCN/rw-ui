@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row align="center" justify="center">
       <v-col>
-        <v-card elevation="12" rounded="xl">
+        <v-card elevation="12">
           <v-toolbar color="deep-indigo">
             <v-toolbar-title class="subtitle-1">HTTPS健康检测</v-toolbar-title>
             <v-spacer></v-spacer>

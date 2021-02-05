@@ -2,14 +2,17 @@
   <v-navigation-drawer
     clipped
     app
-    :mini-variant.sync="mini"
-    :color="$vuetify.theme.dark ? '#272727' : '#f5f5f5'"
+    floating
+    :color="$vuetify.theme.dark ? '#0f0f0f' : '#f5f5f5'"
   >
-    <v-list dense shaped :color="$vuetify.theme.dark ? '#272727' : '#f5f5f5'">
+    <v-list dense :color="$vuetify.theme.dark ? '#0f0f0f' : '#f5f5f5'">
       <template v-for="(item, i) in items">
         <v-row v-if="item.heading" :key="i" align="center" no-gutters>
           <v-col cols="12">
-            <v-subheader v-if="item.heading">
+            <v-subheader
+              v-if="item.heading"
+              class="subtitle-1 font-weight-bold ml-2"
+            >
               {{ item.heading }}
             </v-subheader>
           </v-col>
@@ -40,28 +43,28 @@
 
 <script>
 export default {
-  name: "appnavigator",
+  name: "accountnavigator",
   data: () => ({
     items: [
-      { icon: "mdi-home-map-marker", text: "首页", href: "/" },
-      { divider: true },
-      { heading: "Apps" },
-      { icon: "mdi-send", text: "短连接", href: "/shorturl" },
-      { icon: "mdi-backup-restore", text: "备份", href: "/backup" },
-      { icon: "mdi-email-edit", text: "邮件", href: "/mail" },
-      { icon: "mdi-progress-upload", text: "上传", href: "/upload" },
-      { icon: "mdi-calendar-check", text: "定时任务", href: "/cron" },
-      { icon: "mdi-shield-check", text: "证书检测", href: "/cert" },
-      { divider: true },
-      { heading: "Person" },
-      { icon: "settings", text: "Settings", href: "/setting" },
+      { heading: "设置" },
+      {
+        icon: "mdi-account-circle-outline",
+        text: "账号",
+        href: "/account",
+      },
+      {
+        icon: "mdi-at",
+        text: "邮箱",
+        href: "/account/mail",
+      },
+      {
+        icon: "mdi-reminder",
+        text: "消息通知",
+        href: "/account/reminder",
+      },
     ],
   }),
-  computed: {
-    mini() {
-      return this.$store.state.mini;
-    },
-  },
+  computed: {},
   methods: {},
 };
 </script>

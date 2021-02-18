@@ -68,6 +68,7 @@
             <v-text-field
               outlined
               dense
+              :type="showPasswd ? 'text' : 'password'"
               hint="使用 8 个或更多字符（字母、数字和符号的组合）"
               persistent-hint
             >
@@ -77,19 +78,24 @@
             >
           </v-list-item>
           <v-list-item>
-            <v-text-field outlined dense class="mt-4">
+            <v-text-field
+              outlined
+              dense
+              class="mt-4"
+              :type="showPasswd ? 'text' : 'password'"
+            >
               <template v-slot:label>
                 <div class="font-weight-bold caption">请确认密码</div>
               </template></v-text-field
             >
           </v-list-item>
           <v-list-item
-            ><v-switch color="deep-orange"></v-switch>
+            ><v-switch color="deep-orange" v-model="showPasswd"></v-switch>
             <div class="caption">显示密码</div></v-list-item
           >
         </v-window-item>
         <v-window-item :value="3">
-          <div class="pa-4 text-center">   
+          <div class="pa-4 text-center">
             <h1>Congratulation!</h1>
             <h3 class="title font-weight-light mb-2">Welcome to rwplus</h3>
             <span class="caption grey--text">Thanks for signing up!</span>
@@ -114,7 +120,8 @@
 export default {
   name: "register",
   data: () => ({
-      step: 1,
+    step: 1,
+    showPasswd: false,
   }),
 };
 </script>

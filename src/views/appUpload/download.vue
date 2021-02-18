@@ -1,7 +1,7 @@
 <template>
   <v-row no-gutters>
     <v-col cols="12">
-      <v-toolbar>
+      <v-toolbar flat>
         <v-text-field
           v-model="search"
           class="overline mr-3"
@@ -18,7 +18,7 @@
           ><v-icon small>mdi-sync</v-icon></v-btn
         >
         <v-spacer></v-spacer>
-        <v-btn-toggle text small>
+        <v-btn-toggle text rounded>
           <v-btn @click="tree = []" small> clear</v-btn>
           <v-btn @click="dowloadFiles()" small> download </v-btn>
         </v-btn-toggle>

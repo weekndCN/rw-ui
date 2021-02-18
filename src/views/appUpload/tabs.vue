@@ -1,7 +1,7 @@
 <template>
   <v-row no-gutters class="fill-height">
     <v-col cols="12">
-      <v-card elevation="10" height="100%">  
+      <v-card elevation="10" height="100%">
         <v-toolbar outlined>
           <v-toolbar-title class="heading-1">文件中心</v-toolbar-title>
           <template v-slot:extension>
@@ -13,8 +13,8 @@
               slider-size="4"
             >
               <v-tab class="overline"> 上传文件 </v-tab>
-              <v-tab class="overline"> 下载文件 </v-tab>
-              <v-tab class="overline"> 文件库 </v-tab>
+              <v-tab class="overline" @click="getTree()"> 下载文件 </v-tab>
+              <!--<v-tab class="overline"> 文件库 </v-tab>-->
             </v-tabs>
           </template>
         </v-toolbar>
@@ -50,6 +50,11 @@ export default {
   data: () => ({
     tabs: null,
   }),
+  methods: {
+    getTree: function () {
+      this.$store.dispatch("getTree");
+    },
+  },
 };
 </script>
 

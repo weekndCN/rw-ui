@@ -45,20 +45,16 @@
                         <div class="font-weight-bold caption">请输入密码</div>
                       </template>
                     </v-text-field>
-                    <v-btn
-                      color="indigo"
-                      block
-                      dark
-                      rounded
-                      class="caption"
-                      @click="isLogin = !isLogin"
+                    <v-btn color="indigo" block dark rounded class="caption"
                       >登陆</v-btn
                     >
                   </v-form>
                   <div class="caption ma-2">忘记用户名或者密码?</div>
                 </v-card-text>
                 <v-card-text class="mb-4">
-                  新注册账号?<strong class="ml-1">注册</strong>
+                  新注册账号?<v-btn text @click="register"
+                    >注册</v-btn
+                  >
                 </v-card-text>
               </v-col>
             </v-row>
@@ -79,10 +75,17 @@ export default {
   components: {
     Register,
   },
-  data: () => ({
-    isLogin: true,
-  }),
-  computed: {},
+  data: () => ({}),
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
+    },
+  },
+  methods: {
+    register: function () {
+      this.$store.commit("IS_LOGIN");
+    },
+  },
 };
 </script>
 

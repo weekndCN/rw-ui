@@ -6,3 +6,4 @@ export { uploadFiles } from './upload';
 export { getTree } from './tree';
 export { downloadFile } from './download';
 export { showMini } from './app';
+export { registerUser } from './sign';

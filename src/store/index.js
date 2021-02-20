@@ -34,6 +34,9 @@ export default new Vuex.Store({
     drawer: false,
     //mini mode
     mini: true,
+    // regitser user
+    isLogin: true,
+    registerRes: false,
   },
   // mutations update store values
   mutations: {
@@ -139,6 +142,26 @@ export default new Vuex.Store({
     MINI_SHOW(state) {
       state.mini = !state.mini
     },
+
+    // register user
+    REGISTER_USER_LOADING(state) {
+      state.registerRes = false
+      state.loading = true
+    },
+    REGISTER_USER_SUCCESS(state) {
+      state.registerRes = true
+      state.snack.show = true
+      state.snack.text = "注册成功"
+      state.snack.color = "success"
+    },
+    REGISTER_USER_FAILURE(state) {
+      state.snack.show = true
+      state.snack.text = "注册失败"
+      state.snack.color = "error"
+    },
+    IS_LOGIN(state) {
+      state.isLogin = !state.isLogin
+    }
   },
   actions,
   modules: {

@@ -41,23 +41,22 @@
                   {{ cert.expired_at == "" ? "00" : cert.expired_at }}
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title
-                    ><v-icon color="green" left>mdi-certificate-outline</v-icon
-                    >{{ name }}</v-list-item-title
-                  >
+                  <v-list-item-title>
+                    <div class="font-weight-bold caption">域名: {{name}}</div>
+                  </v-list-item-title>
                   <v-list-item-subtitle class="caption">
                     <v-row no-gutters>
                       <v-col cols="12" md="4">
-                        <v-chip small class="mr-3">issuer: </v-chip
-                        >{{ cert.issuer }}
+                        <div class="font-weight-bold">issuer:</div>
+                        {{ cert.issuer }}
                       </v-col>
                       <v-col cols="12" md="4">
-                        <v-chip small class="mr-3">创建时间: </v-chip
-                        >{{ cert.create_at }}
+                        <div class="font-weight-bold">创建时间:</div>
+                        {{ cert.create_at }}
                       </v-col>
                       <v-col cols="12" md="4">
-                        <v-chip small class="mr-3">结束时间: </v-chip
-                        >{{ cert.end_at }}
+                        <div class="font-weight-bold">结束时间:</div>
+                        {{ cert.end_at }}
                       </v-col>
                     </v-row>
                   </v-list-item-subtitle>
@@ -66,15 +65,15 @@
                   <v-list-item-action-text
                     v-text="cert.check_at"
                   ></v-list-item-action-text>
-                  <v-btn-toggle dense rounded>
+                  <v-btn-toggle rounded>
                     <v-btn
-                      small
+                      x-small
                       :color="cert.expired_at < 48 ? 'red' : ''"
                       class="caption"
                       >Bad</v-btn
                     >
                     <v-btn
-                      small
+                      x-small
                       :color="cert.expired_at > 48 ? 'green' : ''"
                       class="caption"
                       >OK</v-btn

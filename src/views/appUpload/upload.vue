@@ -106,7 +106,7 @@
                     dense
                     :disabled="disable"
                     hide-details
-                    solo-inverted
+                    filled
                     placeholder="默认为当前目录/"
                     class="caption"
                   ></v-text-field>
@@ -117,9 +117,16 @@
                   <v-list-item-title class="caption font-weight-bold">
                     访问URL的PathPrefix</v-list-item-title
                   >
-                  <v-list-item-subtitle class="caption mt-2">
-                    {{ uppath }}</v-list-item-subtitle
-                  >
+                  <v-text-field
+                    class="caption mt-2"
+                    v-model="uppath"
+                    ref="copyUrl"
+                    dense
+                    readonly
+                    filled
+                    append-outer-icon="mdi-content-copy"
+                    @click:append-outer="copyText"
+                  ></v-text-field>
                 </v-list-item-content>
               </v-list-item>
               <v-list-item>
@@ -137,32 +144,24 @@
               </v-list-item>
             </v-list>
             <v-divider></v-divider>
-            <v-alert
-              color="teal"
-              border="left"
-              elevation="2"
-              text
-              dense
-              class="mt-4"
-            >
-              <v-list>
-                <v-list-item class="caption">
-                  <v-list-item-content>
-                    <v-list-item-title class="mb-4"
-                      >{{ limitDesc.name }}
-                    </v-list-item-title>
-                    <v-list-item-subtitle
-                      class="caption"
-                      v-for="item in limitDesc.items"
-                      :key="item.id"
-                      ><v-icon color="green" left
-                        >mdi-numeric-{{ item.id }}-circle</v-icon
-                      >{{ item.desc }}
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </v-alert>
+
+            <v-list dense>
+              <v-list-item class="caption">
+                <v-list-item-content>
+                  <v-list-item-title class="mb-4"
+                    >{{ limitDesc.name }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle
+                    class="caption font-weight-regular"
+                    v-for="item in limitDesc.items"
+                    :key="item.id"
+                    ><v-icon color="purple" left
+                      >mdi-numeric-{{ item.id }}-circle</v-icon
+                    >{{ item.desc }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
           </div>
           <div v-else>
             <v-list-item v-for="(file, index) in uploadfiles" :key="index">
@@ -292,6 +291,11 @@ export default {
       var dt = e.dataTransfer;
       // uploadFile func
       this.uploadFile(dt.files);
+    },
+    copyText: function () {
+      let copyText = this.$refs.copyUrl.$el.querySelector('input');
+      copyText.select();
+      document.execCommand("copy");
     },
   },
 };

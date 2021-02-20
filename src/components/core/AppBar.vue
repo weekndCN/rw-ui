@@ -60,7 +60,7 @@ export default {
   }),
   computed: {},
   mounted() {
-    //this.$vuetify.theme.dark = true;
+    this.$vuetify.theme.dark = true;
   },
   methods: {
     changeMod() {

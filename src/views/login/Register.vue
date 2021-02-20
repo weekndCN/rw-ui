@@ -1,10 +1,10 @@
 <template>
-  <v-row align="center" justify="center" no-gutters>
+  <v-row align="center" justify="center" no-gutters class="fill-height">
     <v-col cols="12" md="8" xl="6" class="text-center">
       <v-window v-model="step">
         <v-window-item :value="1">
-          <v-card-subtitle class="black--text my-5">
-            <h2 class="black--text my-2">注册账号</h2>
+          <v-card-subtitle class="my-5">
+            <h2 class="my-2">注册账号</h2>
             创建您的Rwplus账号，获取服务支持
           </v-card-subtitle>
           <v-list-item class="mb-1">
@@ -194,7 +194,7 @@ export default {
           if (this.$store.state.registerRes) {
             this.step++;
             setTimeout(() => {
-             this.$store.commit("IS_LOGIN")
+              this.$store.commit("IS_LOGIN");
             }, 2000);
           }
         });

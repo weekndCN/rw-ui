@@ -1,6 +1,6 @@
 // default authentication credentials.
 export const headers = new Headers(
-    process.env.VUE_APP_RWPLUS_TOKEN ? { Authorization: `Bearer ${process.env.VUE_APP_RWPLUS_TOKEN}` } : {}
+    window.localStorage.getItem("token")? { Authorization: `Bearer ${window.localStorage.getItem("token")}` } : {}
 );
 
 // default server api token.

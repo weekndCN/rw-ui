@@ -57,12 +57,12 @@ const routes = [
   },
   {
     path: '/login',
-    name: '/login',
+    name: 'login',
     component: () => import('@/views/login/Login'),
   },
   {
     path: '/register',
-    name: '/register',
+    name: 'register',
     component: () => import('@/views/login/Register'),
   },
   {
@@ -88,5 +88,13 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+
+// auth before each route
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'login' && !localStorage.getItem('token')) next({ name: 'login' })
+  else next()
+})
+
 
 export default router

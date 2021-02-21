@@ -37,6 +37,7 @@ export default new Vuex.Store({
     // regitser user
     isLogin: true,
     registerRes: false,
+    isAuthenticated: localStorage.getItem('token') ? true : false,
   },
   // mutations update store values
   mutations: {

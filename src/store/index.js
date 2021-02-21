@@ -37,7 +37,7 @@ export default new Vuex.Store({
     // regitser user
     isLogin: true,
     registerRes: false,
-    isAuthenticated: localStorage.getItem('token') ? true : false,
+    isAuthenticated: false,
   },
   // mutations update store values
   mutations: {
@@ -162,7 +162,10 @@ export default new Vuex.Store({
     },
     IS_LOGIN(state) {
       state.isLogin = !state.isLogin
-    }
+    },
+    IS_AUTHENTICATED(state) {
+      state.isAuthenticated = !state.isAuthenticated
+    },
   },
   actions,
   modules: {

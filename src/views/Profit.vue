@@ -58,7 +58,12 @@
           </v-list-item-group>
         </v-list>
         <v-divider></v-divider>
-        <v-btn depressed class="overline mt-4 mb-4" small rounded to="/login"
+        <v-btn
+          depressed
+          class="overline mt-4 mb-4"
+          small
+          rounded
+          @click="logout"
           >退出</v-btn
         >
         <v-divider></v-divider>
@@ -77,5 +82,11 @@ export default {
     message: false,
     hints: true,
   }),
+  methods: {
+    logout: function () {
+      window.localStorage.removeItem("token");
+      window.location.href = "/";
+    },
+  },
 };
 </script>

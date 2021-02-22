@@ -5,7 +5,7 @@
     :mini-variant.sync="mini"
     :color="$vuetify.theme.dark ? '#272727' : '#f5f5f5'"
   >
-    <v-list dense shaped :color="$vuetify.theme.dark ? '#272727' : '#f5f5f5'">
+    <v-list dense shaped :color="$vuetify.theme.dark ? '#272727' : '#f5f5f5'" >
       <template v-for="(item, i) in items">
         <v-row v-if="item.heading" :key="i" align="center" no-gutters>
           <v-col cols="12">
@@ -20,9 +20,9 @@
           dark
           class="my-4"
         ></v-divider>
-        <v-list-item v-else :key="i" :to="item.href">
+        <v-list-item v-else :key="i" :to="item.href" color="teal">
           <v-list-item-action>
-            <v-icon :color="$vuetify.theme.dark ? 'grey' : ''">{{
+            <v-icon :color="$vuetify.theme.dark ? 'grey' : 'teal'">{{
               item.icon
             }}</v-icon>
           </v-list-item-action>

@@ -1,6 +1,6 @@
 // default authentication credentials.
 export const headers = new Headers(
-    window.localStorage.getItem("token")? { Authorization: `Bearer ${window.localStorage.getItem("token")}` } : {}
+    window.localStorage.getItem("token")? {Authorization: `Bearer ${window.localStorage.getItem("token")}`} : {}
 );
 
 // default server api token.

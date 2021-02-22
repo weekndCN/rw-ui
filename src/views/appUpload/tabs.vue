@@ -14,7 +14,7 @@
             >
               <v-tab class="overline"> 上传文件 </v-tab>
               <v-tab class="overline" @click="getTree()"> 下载文件 </v-tab>
-              <!--<v-tab class="overline"> 文件库 </v-tab>-->
+              <v-tab class="overline"> 文件库 </v-tab>
             </v-tabs>
           </template>
         </v-toolbar>

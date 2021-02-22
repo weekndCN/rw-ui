@@ -1,4 +1,4 @@
-import { instance,headers } from "./config"
+import { instance } from "./config"
 
 // Regitser user
 export const REGISTER_USER_LOADING = "REGISTER_USER_LOADING";

@@ -29,7 +29,7 @@
           </template>
         </v-autocomplete>
         <v-btn-toggle small class="ml-4" rounded>
-          <v-btn @click="tree = []" small>清除</v-btn>
+          <v-btn @click="batchFiles = []" small>清除</v-btn>
           <v-btn @click="dowloadFiles()" small> 下载 </v-btn>
         </v-btn-toggle>
       </v-toolbar>
@@ -113,7 +113,7 @@
               <v-spacer></v-spacer>
 
               <v-list-item-icon>
-                <v-btn icon>
+                <v-btn icon @click="dowloadFile(selected.location)">
                   <v-icon>mdi-download</v-icon>
                 </v-btn>
               </v-list-item-icon>
@@ -195,6 +195,8 @@ export default {
             console.log(err);
           })
           .finally(() => (this.isLoading = false));
+
+        this.batchFiles = [];
       }
     },
   },
@@ -261,8 +263,6 @@ export default {
       if (req.status < 300) {
         this.desserts = res;
       }
-
-      // fix v-switch the first row auto bind true bug
       this.batchFiles = [];
     },
     dowloadFiles: function () {
@@ -273,6 +273,13 @@ export default {
           path: this.batchFiles[i],
         });
       }
+    },
+    dowloadFile(item) {
+      var pos = item.lastIndexOf("/");
+      this.$store.dispatch("downloadFile", {
+        name: item.substring(pos + 1),
+        path: item,
+      });
     },
     // extract size
     extSize: function (size) {

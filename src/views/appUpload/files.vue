@@ -275,6 +275,7 @@ export default {
       }
     },
     dowloadFile(item) {
+      console.log(item)
       var pos = item.lastIndexOf("/");
       this.$store.dispatch("downloadFile", {
         name: item.substring(pos + 1),

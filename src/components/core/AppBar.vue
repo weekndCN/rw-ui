@@ -60,15 +60,11 @@ export default {
   }),
   computed: {},
   mounted() {
-    this.$vuetify.theme.dark = true;
+    //this.$vuetify.theme.dark = true;
   },
   methods: {
     changeMod() {
-      if (this.$vuetify.theme.dark) {
-        this.$vuetify.theme.dark = false;
-      } else {
-        this.$vuetify.theme.dark = true;
-      }
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
     miniChange: function () {
       this.$store.dispatch("showMini");

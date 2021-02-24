@@ -49,24 +49,22 @@
               color="red"
               dark
               rounded
-              ><v-icon small>mdi-close</v-icon>清空重选</v-btn
+              ><v-icon small left>mdi-close</v-icon>清空重选</v-btn
             >
             <v-chip-group column active-class="primary-color">
               <v-chip
                 v-for="(file, i) in uploadfiles"
                 :key="i"
-                label
-                text-color="white"
-                color="black"
+                color="deep-purple accent-4"
+                outlined
+                class="caption"
               >
-                <v-avatar left>
                   <v-icon
                     small
+                    left
                     v-text="ext(file.name).icon"
-                    :color="ext(file.name).color"
                   >
                   </v-icon>
-                </v-avatar>
                 <strong>{{ file.name }}</strong>
                 <span>({{ file.size / 1000 }}kb)</span>
               </v-chip>
@@ -155,7 +153,7 @@
                     class="caption font-weight-regular"
                     v-for="item in limitDesc.items"
                     :key="item.id"
-                    ><v-icon color="purple" left
+                    ><v-icon color="cyan" left
                       >mdi-numeric-{{ item.id }}-circle</v-icon
                     >{{ item.desc }}
                   </v-list-item-subtitle>
@@ -170,6 +168,7 @@
                   right
                   v-text="ext(file.name).icon"
                   :color="ext(file.name).color"
+                  small
                 ></v-icon
               ></v-list-item-icon>
               <v-list-item-content>
@@ -190,15 +189,15 @@
                 <v-icon
                   right
                   color="green"
+                  small
                   v-else-if="uploadStatus == 'success'"
                   >mdi-check-circle</v-icon
                 >
-                <v-icon right color="red" v-else>mdi-cloud-sync-outline</v-icon>
+                <v-icon right color="grey" v-else small>mdi-cloud-sync-outline</v-icon>
               </v-list-item-action>
             </v-list-item>
           </div>
         </v-scale-transition>
-        <v-divider></v-divider>
       </v-card>
     </v-col>
   </v-row>
@@ -293,7 +292,7 @@ export default {
       this.uploadFile(dt.files);
     },
     copyText: function () {
-      let copyText = this.$refs.copyUrl.$el.querySelector('input');
+      let copyText = this.$refs.copyUrl.$el.querySelector("input");
       copyText.select();
       document.execCommand("copy");
     },

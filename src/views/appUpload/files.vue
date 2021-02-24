@@ -55,13 +55,13 @@
         <template v-slot:item="{ item }">
           <tr
             :class="
-              selectedRows.indexOf(item.location) > -1 ? 'font-weight-bold' : ''
+              selectedRows.indexOf(item.id) > -1 ? 'font-weight-bold' : ''
             "
           >
             <td
               align="center"
               :style="
-                selectedRows.indexOf(item.location) > -1
+                selectedRows.indexOf(item.id) > -1
                   ? 'border-left: 4px solid teal'
                   : ''
               "
@@ -70,15 +70,22 @@
                 icon
                 small
                 @click="showSheet(item)"
-                :color="selectedRows.indexOf(item.location) > -1 ? 'teal' : ''"
+                :color="selectedRows.indexOf(item.id) > -1 ? 'teal' : ''"
                 ><v-icon>mdi-map-marker-circle</v-icon></v-btn
               >
+            </td>
+            <td>
+              <v-switch
+                v-model="batchFiles"
+                :value="item.location"
+                color="green darken-1"
+              ></v-switch>
             </td>
             <td>{{ item.name }}</td>
             <td>{{ item.user }}</td>
             <td>{{ extSize(item.size) }}</td>
             <td>
-              {{ item.create_at }}
+              {{ item.create_at ? item.create_at.substring(0, 10) : "" }}
               <v-btn icon @click="addFilter(item, 'time')"
                 ><v-icon>mdi-filter-variant</v-icon>
               </v-btn>
@@ -89,7 +96,6 @@
                 ><v-icon>mdi-filter-variant</v-icon>
               </v-btn>
             </td>
-            <td>{{ item.location }}</td>
           </tr>
         </template>
       </v-data-table>
@@ -133,6 +139,7 @@ export default {
     sheet: false,
     filterchips: [],
     selected: "",
+    batchFiles: [],
     isLoading: false,
     selectedRows: [],
     headers: [
@@ -141,6 +148,10 @@ export default {
         align: "center",
         sortable: false,
         value: "actions",
+      },
+      {
+        text: "选中",
+        value: "pick",
       },
       {
         text: "文件名",
@@ -153,7 +164,6 @@ export default {
       { text: "文件大小", value: "size" },
       { text: "上传日期", value: "create_at" },
       { text: "类型", value: "type" },
-      { text: "路径", value: "location" },
     ],
     desserts: [{}],
     items: [{}],
@@ -163,34 +173,40 @@ export default {
   },
   watch: {
     filterchips(val) {
-      if (val.length == 0) return;
-      // filter generate
-      var queryString = Object.keys(val)
-        .map(function (key) {
-          return val[key].name + "=" + val[key].type;
-        })
-        .join("&");
+      if (val.length == 0) {
+        this.getFiles();
+      } else {
+        // filter generate
+        var queryString = Object.keys(val)
+          .map(function (key) {
+            return val[key].name + "=" + val[key].type;
+          })
+          .join("&");
 
-      this.isLoading = true;
-      // Lazily load input items
-      fetch(`${instance}/file/list?${queryString}`, {
-        method: "GET",
-      })
-        .then((res) => res.clone().json())
-        .then((res) => {
-          this.items = res;
+        this.isLoading = true;
+        // Lazily load input items
+        fetch(`${instance}/file/list?${queryString}`, {
+          method: "GET",
         })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => (this.isLoading = false));
+          .then((res) => res.clone().json())
+          .then((res) => {
+            this.desserts = res;
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => (this.isLoading = false));
+      }
+    },
+    batchFiles(val) {
+      console.log(val);
     },
   },
   methods: {
     // show button sheet
     showSheet: function (item) {
       this.sheet = true;
-      this.toggleSelection(item.location);
+      this.toggleSelection(item.id);
       this.selected = item;
     },
     // close button sheet
@@ -221,7 +237,7 @@ export default {
 
         if (index < 0) {
           this.filterchips.push({
-            name: "date",
+            name: "time",
             type: item.create_at.substring(0, 10),
           });
         }
@@ -249,8 +265,6 @@ export default {
       if (req.status < 300) {
         this.desserts = res;
       }
-
-      console.log(this.desserts);
     },
     // extract size
     extSize: function (size) {
@@ -261,6 +275,9 @@ export default {
         i++;
       }
       return Math.round(size * 100) / 100 + " " + fSExt[i];
+    },
+    dateTime: function (item) {
+      return item.substring(0, 10);
     },
   },
 };

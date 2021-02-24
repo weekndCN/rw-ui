@@ -20,9 +20,9 @@
           dark
           class="my-4"
         ></v-divider>
-        <v-list-item v-else :key="i" :to="item.href" color="teal">
+        <v-list-item v-else :key="i" :to="item.href">
           <v-list-item-action>
-            <v-icon :color="$vuetify.theme.dark ? 'grey' : 'teal'">{{
+            <v-icon :color="$vuetify.theme.dark ? 'grey' : ''">{{
               item.icon
             }}</v-icon>
           </v-list-item-action>

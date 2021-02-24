@@ -76,8 +76,8 @@
             </td>
             <td>
               <v-switch
-                v-model="batchFiles"
                 :value="item.location"
+                v-model="batchFiles"
                 color="green darken-1"
               ></v-switch>
             </td>
@@ -166,7 +166,6 @@ export default {
       { text: "类型", value: "type" },
     ],
     desserts: [{}],
-    items: [{}],
   }),
   created() {
     this.getFiles();
@@ -197,9 +196,6 @@ export default {
           })
           .finally(() => (this.isLoading = false));
       }
-    },
-    batchFiles(val) {
-      console.log(val);
     },
   },
   methods: {
@@ -264,6 +260,18 @@ export default {
 
       if (req.status < 300) {
         this.desserts = res;
+      }
+
+      // fix v-switch the first row auto bind true bug
+      this.batchFiles = [];
+    },
+    dowloadFiles: function () {
+      for (var i = 0; i < this.batchFiles.length; i++) {
+        var pos = this.batchFiles[i].lastIndexOf("/");
+        this.$store.dispatch("downloadFile", {
+          name: this.batchFiles[i].substring(pos + 1),
+          path: this.batchFiles[i],
+        });
       }
     },
     // extract size

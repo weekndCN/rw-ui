@@ -16,7 +16,7 @@ const routes = [
       {
         path: '/upload',
         name: 'upload',
-        component: () => import('@/views/appUpload/tabs'),
+        component: () => import('@/views/upload/tabs'),
       },
       {
         path: '/labs',
@@ -26,27 +26,32 @@ const routes = [
       {
         path: '/cert',
         name: 'cert',
-        component: () => import('@/views/appCert/cert'),
+        component: () => import('@/views/cert/cert'),
       },
       {
         path: '/shorturl',
         name: 'shorturl',
-        component: () => import('@/views/appShorturl/shorturl'),
+        component: () => import('@/views/shorturl/shorturl'),
       },
       {
         path: '/backup',
         name: 'backup',
-        component: () => import('@/views/appBackup/backup'),
+        component: () => import('@/views/backup/backup'),
       },
       {
         path: '/cron',
         name: 'cron',
-        component: () => import('@/views/appCron/cron.vue'),
+        component: () => import('@/views/cron/cron.vue'),
+      },
+      {
+        path: '/docker',
+        name: 'docker',
+        component: () => import('@/views/docker/docker.vue'),
       },
       {
         path: '/cron/logs/:job',
         name: 'logs',
-        component: () => import('@/views/appCron/log'),
+        component: () => import('@/views/cron/log'),
       },
       {
         path: '/setting',

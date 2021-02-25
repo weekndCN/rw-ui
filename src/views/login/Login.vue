@@ -18,13 +18,13 @@
                 </v-card-subtitle>
                 <v-list-item>
                   <v-btn color="black" block dark rounded
-                    ><v-icon left>mdi-account-supervisor-circle-outline</v-icon>
+                    ><v-icon left>fab fa-github</v-icon>
                     使用github账号登陆</v-btn
                   >
                 </v-list-item>
                 <v-list-item>
                   <v-btn color="red" block dark rounded
-                    ><v-icon left>mdi-account-supervisor-circle-outline</v-icon>
+                    ><v-icon left>fab fa-gitlab</v-icon>
                     使用gitlab账号登陆</v-btn
                   >
                 </v-list-item>

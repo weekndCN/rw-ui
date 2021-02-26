@@ -28,7 +28,7 @@
         <template v-slot:item.container="{ item }">
           <v-list-item-content>
             <v-list-item-subtitle class="caption"
-              ><strong>{{ item.names[0].substring(1) }}</strong>
+              ><strong>{{ item.names[0].substring(1,20) }}</strong>
               {{ item.image }}
             </v-list-item-subtitle>
             <div>

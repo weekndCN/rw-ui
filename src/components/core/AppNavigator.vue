@@ -52,7 +52,7 @@ export default {
       { icon: "mdi-calendar-check", text: "定时任务", href: "/cron" },
       { icon: "fab fa-expeditedssl", text: "证书检测", href: "/cert" },
       { icon: "fab fa-jenkins", text: "CI", href: "/jenkins" },
-      { icon: "fab fa-docker", text: "CI", href: "/docker" },
+      { icon: "fab fa-docker", text: "docker", href: "/docker" },
       // { icon: "mdi-send", text: "短连接", href: "/shorturl" },
       { divider: true },
       { heading: "Person" },

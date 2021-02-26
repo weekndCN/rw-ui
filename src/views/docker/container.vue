@@ -74,34 +74,14 @@
           <v-btn icon class="mr-2" v-else @click="stopContainer(item.ID)">
             <v-icon>fa-stop-circle</v-icon>
           </v-btn>
-          <v-btn icon class="mr-2" @click="logContainer(item.ID)"
+          <v-btn icon class="mr-2" @click="showDialog(item.ID)"
             ><v-icon>fa-dot-circle</v-icon></v-btn
           >
           <v-btn icon class="mr-2"><v-icon>fa-ban</v-icon></v-btn>
         </template>
       </v-data-table>
       <!-- log console terminal -->
-      <v-dialog
-        v-model="logDiag"
-        persistent
-        transition="dialog-bottom-transition"
-      >
-        <v-card>
-          <v-toolbar dark color="primary">
-            <v-btn icon dark @click="logDiag = false">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-            <v-toolbar-title>logs</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-toolbar-items>
-              <v-btn dark text @click="logDiag = false">Save</v-btn>
-            </v-toolbar-items>
-          </v-toolbar>
-          <v-card-text>
-            <pre> {{ lines }}</pre>
-          </v-card-text>
-        </v-card>
-      </v-dialog>
+      <container-log v-if="logDiag" :id="containerID" />
     </v-col>
   </v-row>
 </template>
@@ -110,14 +90,19 @@
 
 <script>
 import { instance } from "@/actions/config";
-
+import ContainerLog from "./log";
 export default {
+  name: "container",
+  components: {
+    ContainerLog,
+  },
   data() {
     return {
       search: "",
       calories: "",
-      lines: [],
+      lines: "",
       logDiag: false,
+      containerID: "",
       headers: [
         {
           text: "状态",
@@ -186,19 +171,9 @@ export default {
         this.getContainers();
       }
     },
-    logContainer: function (id) {
-      this.logDiag = true;
-      const path = `${instance}/docker/tail/${id}`;
-      var evtSource = new EventSource(path);
-      evtSource.onmessage = function (event) {
-        this.lines.push(event.data);
-      };
-      console.log("lines:", this.lines);
-      evtSource.onerror = function (err) {
-        if (err.data === "eof") {
-          evtSource.close();
-        }
-      };
+    showDialog: function (id) {
+      this.containerID = id;
+      this.logDiag = !this.logDiag;
     },
   },
 };
